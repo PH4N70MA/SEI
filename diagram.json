@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "author": "AlexR",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-st-nucleo-l031k6", "id": "nucleo", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -22.8,
+      "left": 109.4,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn1",
+      "top": 170.6,
+      "left": -48,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 52.8,
+      "left": 105.05,
+      "rotate": 90,
+      "attrs": { "value": "1000" }
+    }
+  ],
+  "connections": [
+    [ "$serialMonitor:TX", "nucleo:VCP_RX", "", [] ],
+    [ "$serialMonitor:RX", "nucleo:VCP_TX", "", [] ],
+    [ "nucleo:D12", "btn1:1.r", "red", [ "h0" ] ],
+    [ "btn1:2.r", "nucleo:GND.2", "black", [ "h0.8", "v19.6", "h115.2", "v-163.2" ] ],
+    [ "led1:C", "nucleo:GND.2", "black", [ "v0" ] ],
+    [ "r1:1", "led1:A", "green", [ "h0" ] ],
+    [ "r1:2", "nucleo:D13", "red", [ "h0", "v85.2" ] ]
+  ],
+  "dependencies": {}
+}
