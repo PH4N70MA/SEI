@@ -1,5 +1,0 @@
-# Hello World
-
-This is the main file for the new repository.
-
-1. Branch este un template pentru laburile pe STM
