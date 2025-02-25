@@ -1,0 +1,5 @@
+[wokwi]
+version = 1
+firmware = '.pio\build\nucleo_l031k6\firmware.bin'
+elf = '.pio\build\nucleo_l031k6\firmware.elf'
+rfc2217ServerPort = 4000
