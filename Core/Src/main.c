@@ -67,7 +67,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-  
+
+  // Buffer to store the user input
+  char buf[100];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -92,6 +94,9 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  // Initialize the retarget function
+  RetargetInit(&huart2);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,6 +104,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
+    printf("\r\nYour name: ");
+    scanf("%s", buf);
+    printf("\r\nHello, %s!\r\n", buf);
 
     /* USER CODE BEGIN 3 */
   }
