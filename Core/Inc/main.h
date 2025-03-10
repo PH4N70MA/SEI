@@ -28,13 +28,14 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l0xx_hal.h"
-#include <stdio.h>
-#include "C:\Users\Ghost\Documents\SEI\lib\stdio_stm\stdio_stm.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>  
 #include <stdio.h>
+#include <string.h>
+#include "config.h"
+#include "../../lib/stdio_stm/stdio_stm.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

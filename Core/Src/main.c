@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DEBOUNDE_DELAY 100
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -67,9 +67,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
-  // Buffer to store the user input
-  char buf[100];
+  
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -93,7 +91,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_UART_Receive_IT(&huart2, RX_DATA, RX_DATA_SIZE);
   // Initialize the retarget function
   RetargetInit(&huart2);
 
@@ -104,10 +102,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
-    printf("\r\nYour name: ");
-    scanf("%s", buf);
-    printf("\r\nHello, %s!\r\n", buf);
 
     /* USER CODE BEGIN 3 */
   }
@@ -230,6 +224,90 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/**
+ * @brief Display the list of available commands and their descriptions.
+ * 
+ * This function prints out the available commands that can be used to control the LED.
+ * The commands include:
+ * - led_on: Turn on the LED
+ * - led_off: Turn off the LED
+ * - led_blink: Blink the LED
+ * - led_state: Get the LED status
+ * - led_toggle: Toggle the LED
+ */
+void getHelp(void)
+{
+  printf("Available commands:\n");
+  printf("```\n");
+  printf("led_on: Turn on the LED\n");
+  printf("led_off: Turn off the LED\n");
+  printf("led_state: Get the LED status\n");
+  printf("led_toggle: Toggle the LED\n");
+  printf("```\n");
+}
+
+/**
+ * @brief Control the LED based on the command entered by the user.
+ * @param command: The command entered by the user.
+ * @return Set the LED or write the message to the user.     
+ */
+void ledControl(char *command)
+{
+  if (!strcmp(command, "led_on"))
+  {
+    HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_SET);
+  }
+  else if (!strcmp(command, "led_off"))
+  {
+    HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+  }
+  else if (!strcmp(command, "led_state"))
+  {
+    GPIO_PinState pinState = HAL_GPIO_ReadPin(LD3_GPIO_Port, LD3_Pin);
+    printf("LED status: %s\n", (pinState == GPIO_PIN_SET) ? "ON" : "OFF");
+  }
+  else if (!strcmp(command, "led_toggle"))
+  {
+    HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+  }
+  else if (!strcmp(command, "help"))
+  {
+    getHelp();
+  }
+  else
+  {
+    printf("Unknown command. Type 'help' for a list of available commands.\n");
+  }
+}
+
+/**
+ * @brief USART interrupt handler function.
+ * @return Call ladControl function with the command entered by the user.      
+ */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  // Prevent unused argument(s) compilation warning
+  UNUSED(huart);
+  if (RX_DATA[0] != '.')
+  {
+    printf("Request declined!\n ");
+    HAL_UART_Receive_IT(&huart2, RX_DATA, RX_DATA_SIZE);
+    return;
+  }
+  printf("Request received!\n ");
+  
+  printf("Enter command: ");
+  char command[10] = {0};
+
+  scanf("%10s", command);
+
+  printf("%s\n", command);
+  
+  ledControl(command);
+
+  HAL_UART_Receive_IT(&huart2, RX_DATA, RX_DATA_SIZE);
+}
 
 /* USER CODE END 4 */
 
