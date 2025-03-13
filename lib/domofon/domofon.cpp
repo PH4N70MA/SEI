@@ -19,17 +19,15 @@ void domofon_setup()
 
 void check_code(char *code)
 {
-    if (strcmp(code, ACCESS_CODE) == 0)
+    if (strncmp(code, ACCESS_CODE, CODE_LENGTH) == 0)
     {
         digitalWrite(LED_GREEN, HIGH);
         printf("\fAccess granted");
-
     }
     else
     {
         digitalWrite(LED_RED, HIGH);
         printf("\fAccess denied");
-
     }
     needReset = true;
     nextResetTime = millis() + RESET_TIME;  
@@ -50,6 +48,7 @@ void resetAccess(void)
 
         digitalWrite(LED_RED, LOW);
         digitalWrite(LED_GREEN, LOW);
+        simbolIndex = 0;
         needReset = false;
         printf("\fEnter PIN\n");
     }
@@ -62,7 +61,6 @@ void getCode(char ch)
     if (simbolIndex >= CODE_LENGTH - 1)
     {
         code[simbolIndex++] = ch;
-        simbolIndex = 0;
         check_code(code);
     }
     else
@@ -75,7 +73,6 @@ void wasResetPress(const char ch)
 {
     if (ch == RESET_KEY)
     {
-        simbolIndex = 0;
         needReset = true;
         nextResetTime = 0;
         resetAccess();
