@@ -8,7 +8,7 @@
     {
       "type": "wokwi-membrane-keypad",
       "id": "keypad1",
-      "top": -270.8,
+      "top": -280.4,
       "left": 504.8,
       "attrs": {}
     },
@@ -57,7 +57,6 @@
     [ "lcd1:VDD", "nucleo:5V", "red", [ "v48", "h0.1", "v19.2" ] ],
     [ "lcd1:VSS", "nucleo:GND.2", "black", [ "v0" ] ],
     [ "lcd1:RW", "nucleo:GND.2", "black", [ "v0" ] ],
-    [ "lcd1:RS", "nucleo:D7", "orange", [ "v67.2", "h297.9", "v-249.6", "h-547.2", "v307.2" ] ],
     [ "lcd1:D4", "nucleo:D5", "gray", [ "v48", "h211.2", "v-211.2", "h-508.8", "v268.8" ] ],
     [ "lcd1:D5", "nucleo:D4", "gray", [ "v38.4", "h192.1", "v-192", "h-489.6", "v249.6" ] ],
     [ "lcd1:D6", "nucleo:D3", "gray", [ "v28.8", "h173", "v-172.8", "h-470.4", "v230.4" ] ],
@@ -76,15 +75,16 @@
     [ "nucleo:A5", "keypad1:R3", "violet", [ "h0" ] ],
     [ "nucleo:A6", "keypad1:R2", "violet", [ "h0" ] ],
     [ "nucleo:A7", "keypad1:R1", "violet", [ "h0" ] ],
-    [
-      "lcd1:E",
-      "nucleo:D6",
-      "white",
-      [ "v38.4", "h38.4", "v19.2", "h230.4", "v-230.4", "h-528", "v288" ]
-    ],
     [ "pot2:GND", "nucleo:GND.2", "black", [ "v0" ] ],
     [ "pot2:SIG", "lcd1:V0", "blue", [ "v-76.8", "h29.2" ] ],
-    [ "pot2:VCC", "nucleo:5V", "red", [ "v0" ] ]
+    [ "pot2:VCC", "nucleo:5V", "red", [ "v0" ] ],
+    [ "nucleo:D9", "lcd1:RS", "orange", [ "h-67.2", "v-326.4", "h547.2", "v249.6", "h-297.6" ] ],
+    [
+      "nucleo:D6",
+      "lcd1:E",
+      "white",
+      [ "h-57.6", "v-288", "h528", "v230.4", "h-230.4", "v-19.2", "h-38.4" ]
+    ]
   ],
   "dependencies": {}
 }
