@@ -7,3 +7,6 @@ Navigarea pe laboratoare se face din brach-uri
 5. lab_1.1 realizat pe STM
 6. lab_1.2 realizat pe Arduino
 7. lab_1.2 realizat pe STM
+
+Pinout pentru STM
+![Uploading nucleo_l031k6_2017_10_09.png…]()
