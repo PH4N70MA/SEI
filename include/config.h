@@ -16,7 +16,9 @@
 #define BLUE_LED_PAUSE_TIME 1000
 #define BLUE_LED_ON_TIME 300
 #define BLUE_LED_OFF_TIME 500
+#define RESET 0
 
-uint8_t globalConter = 2;
+uint8_t globalCounter = 2;
+uint8_t bufferCounter = 0;
 
 #endif

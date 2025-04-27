@@ -17,7 +17,7 @@ void buttonVariableTaskSetup(void)
     pinMode(DOWN_BUTTON, INPUT_PULLUP);
 }
 
-void buttonLedTask(void *pvParameters)
+void buttonLedTask(void)
 {
     static uint32_t nextTimeTask1 = 0;
     static bool ledLastState = false;
@@ -38,15 +38,57 @@ void buttonLedTask(void *pvParameters)
     }
 }
 
-void ledIntermittentTask(void *pvParameters)
+void ledIntermittentTask(void)
 {
-    if (digitalRead(GREEN_LED)) return;
+    if (!digitalRead(GREEN_LED)) 
+    {
+        bufferCounter = RESET;
+        return;
+    }
 
-    static uint32_t nextTimeTask2 = 0;
-    static bool lastState = false;
-    
+    static uint32_t nextTimeTask2 = RESET;
+
     if(millis() >= nextTimeTask2)
     {
+      if (bufferCounter != globalCounter)
+      {
+        if (!digitalRead(GREEN_LED))
+        {
+          digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+          nextTimeTask2 = millis() + BLUE_LED_ON_TIME;
+        }
+        else if (digitalRead(GREEN_LED))
+        {
+          digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+          nextTimeTask2 = millis() + BLUE_LED_OFF_TIME;
+          ++bufferCounter;
+        }
+      }
+      else
+      {
+        nextTimeTask2 = millis() + BLUE_LED_PAUSE_TIME;
+        bufferCounter = RESET;
+      }
+    }
+}
 
+void buttonVariableTaskSetup(void)
+{
+    static uint32_t nextTimeTask3 = 0;
+    static bool buttonLastState = false;
+
+    if(millis() >= nextTimeTask3) 
+    {
+        if(!digitalRead(UP_BUTTON) & !buttonLastState & (millis() - nextTimeTask3 ) >= BUTTON_REFRESH_TIME)
+        {
+            buttonLastState = true;
+            nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
+        }
+        if(digitalRead(UP_BUTTON) & buttonLastState & (millis() - nextTimeTask3 ) >= BUTTON_REFRESH_TIME)
+        {
+            buttonLastState = false;
+            digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+            nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
+        }
     }
 }
