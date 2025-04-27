@@ -33,6 +33,16 @@ void buttonLedTask(void)
         {
             ledLastState = false;
             digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+            printf("\nGreenLed State: %d\n", digitalRead(GREEN_LED));
+            if(digitalRead(GREEN_LED))
+            {
+                printf("BlueInterminetOff\n");
+            }
+            else
+            {
+                printf("BlueInterminetOn\n");
+                printf("CurentGlobal counter val: %d\n", globalCounter );
+            }
             nextTimeTask1 = millis() + BUTTON_REFRESH_TIME;
         }
     }
@@ -94,6 +104,7 @@ void buttonVariableTask(void)
             {
                 globalCounter = MIN_COUNTER;
             }
+            printf("NewGlobal counter val: %d\n", globalCounter );
             nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
         }
         //minus handler
@@ -110,6 +121,7 @@ void buttonVariableTask(void)
             {
                 globalCounter = MAX_COUNTER;
             }
+            printf("NewGlobal counter val: %d\n", globalCounter );
             nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
         }
     }
