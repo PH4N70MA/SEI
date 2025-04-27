@@ -18,7 +18,10 @@
 #define BLUE_LED_OFF_TIME 500
 #define RESET 0
 
-uint8_t globalCounter = 2;
-uint8_t bufferCounter = 0;
+#define MAX_COUNTER 10
+#define MIN_COUNTER 2
+
+extern uint8_t globalCounter;
+extern uint8_t bufferCounter;
 
 #endif

@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include "my_task.h"
 
-void setup(void);
-void loop(void);
+uint8_t globalCounter = 2;
+uint8_t bufferCounter = 0;
 
 #endif

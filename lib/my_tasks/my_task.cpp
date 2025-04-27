@@ -24,12 +24,12 @@ void buttonLedTask(void)
 
     if(millis() >= nextTimeTask1) 
     {
-        if(!digitalRead(ON_OFF_BUTTON) & !ledLastState & (millis() - nextTimeTask1 ) >= BUTTON_REFRESH_TIME)
+        if(!digitalRead(ON_OFF_BUTTON) & !ledLastState & ((millis() - nextTimeTask1 ) >= BUTTON_REFRESH_TIME))
         {
             ledLastState = true;
             nextTimeTask1 = millis() + BUTTON_REFRESH_TIME;
         }
-        if(digitalRead(ON_OFF_BUTTON) & ledLastState & (millis() - nextTimeTask1 ) >= BUTTON_REFRESH_TIME)
+        else if(digitalRead(ON_OFF_BUTTON) & ledLastState & ((millis() - nextTimeTask1 ) >= BUTTON_REFRESH_TIME))
         {
             ledLastState = false;
             digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
@@ -40,7 +40,7 @@ void buttonLedTask(void)
 
 void ledIntermittentTask(void)
 {
-    if (!digitalRead(GREEN_LED)) 
+    if (digitalRead(GREEN_LED)) 
     {
         bufferCounter = RESET;
         return;
@@ -52,14 +52,14 @@ void ledIntermittentTask(void)
     {
       if (bufferCounter != globalCounter)
       {
-        if (!digitalRead(GREEN_LED))
+        if (!digitalRead(BLUE_LED))
         {
-          digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+          digitalWrite(BLUE_LED, !digitalRead(BLUE_LED));
           nextTimeTask2 = millis() + BLUE_LED_ON_TIME;
         }
-        else if (digitalRead(GREEN_LED))
+        else if (digitalRead(BLUE_LED))
         {
-          digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+          digitalWrite(BLUE_LED, !digitalRead(BLUE_LED));
           nextTimeTask2 = millis() + BLUE_LED_OFF_TIME;
           ++bufferCounter;
         }
@@ -72,22 +72,44 @@ void ledIntermittentTask(void)
     }
 }
 
-void buttonVariableTaskSetup(void)
+void buttonVariableTask(void)
 {
     static uint32_t nextTimeTask3 = 0;
-    static bool buttonLastState = false;
+    static bool lastStateUP = false;
+    static bool lastStateDOWN = false;
 
-    if(millis() >= nextTimeTask3) 
+    if(millis() >= nextTimeTask3)
     {
-        if(!digitalRead(UP_BUTTON) & !buttonLastState & (millis() - nextTimeTask3 ) >= BUTTON_REFRESH_TIME)
+        //plus handler
+        if (!digitalRead(UP_BUTTON) & !lastStateUP & ((millis() - nextTimeTask3) > BUTTON_REFRESH_TIME))
         {
-            buttonLastState = true;
+            lastStateUP = true;
             nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
         }
-        if(digitalRead(UP_BUTTON) & buttonLastState & (millis() - nextTimeTask3 ) >= BUTTON_REFRESH_TIME)
+        else if (digitalRead(UP_BUTTON) & lastStateUP & ((millis() - nextTimeTask3) > BUTTON_REFRESH_TIME))
         {
-            buttonLastState = false;
-            digitalWrite(GREEN_LED, !digitalRead(GREEN_LED));
+            lastStateUP = false;
+            ++globalCounter;
+            if (globalCounter > MAX_COUNTER)
+            {
+                globalCounter = MIN_COUNTER;
+            }
+            nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
+        }
+        //minus handler
+        if (!digitalRead(DOWN_BUTTON) & !lastStateDOWN & ((millis() - nextTimeTask3) > BUTTON_REFRESH_TIME))
+        {
+            lastStateDOWN = true;
+            nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
+        }
+        else if (digitalRead(DOWN_BUTTON) & lastStateDOWN & ((millis() - nextTimeTask3) > BUTTON_REFRESH_TIME))
+        {
+            lastStateDOWN = false;
+            --globalCounter;
+            if (globalCounter < MIN_COUNTER)
+            {
+                globalCounter = MAX_COUNTER;
+            }
             nextTimeTask3 = millis() + BUTTON_REFRESH_TIME;
         }
     }
