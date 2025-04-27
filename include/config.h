@@ -13,8 +13,10 @@
 
 #define BUTTON_REFRESH_TIME 100
 
-#define GREEN_LED_ON_TIME 1000
+#define BLUE_LED_PAUSE_TIME 1000
 #define BLUE_LED_ON_TIME 300
 #define BLUE_LED_OFF_TIME 500
+
+uint8_t globalConter = 2;
 
 #endif
