@@ -38,7 +38,7 @@ void buttonPrecess(void)
       lastState = true;
       nextTime = millis() + DEBOUNDE_DELAY;
     }
-    if (digitalRead(BUTTON_PIN) & lastState & ((millis() - nextTime) > DEBOUNDE_DELAY))
+    else if (digitalRead(BUTTON_PIN) & lastState & ((millis() - nextTime) > DEBOUNDE_DELAY))
     {
       lastState = false;
       digitalWrite(LED_PIN, !digitalRead(LED_PIN));
