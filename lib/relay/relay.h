@@ -30,7 +30,7 @@ public:
     const char *getName();                  //done
     uint8_t getPin();                       //done
 
-    bool control(RelayControl command);     //done
+    void control(RelayControl command);     //done
 
 
 private:

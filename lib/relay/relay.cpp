@@ -18,35 +18,34 @@ void Relay::set(RelayState state)
 }
 
 //Functia returneaza 1 daca a schimbat starea si 0 data a ramas aceasi stare
-bool Relay::control(RelayControl command)
+void Relay::control(RelayControl command)
 {
     //Enable Control
-    if(command == ENABLE && !__state)
+    if(command == ENABLE && __state == DISABLED)
     {
         set(ENABLED);
-        return SET;
+        return;
     }
-    else if(command == ENABLE && __state)
+    else if(command == ENABLE && __state== ENABLED)
     {
-        return NOTSET;
+        return;
     }
     //Disble Control
-    if(command == DISABLE && __state)
+    if(command == DISABLE && __state== ENABLED)
     {
         set(DISABLED);
-        return SET;
+        return;
     }
-    else if(command == DISABLE && !__state)
+    else if(command == DISABLE && __state == DISABLED)
     {
-        return NOTSET;
+        return;
     }
     //Toggle Control
     if(command == TOGGLE)
     {
         set((__state == ENABLED) ? DISABLED : ENABLED);
-        return SET;
+        return;
     }
-    return NOTSET;
 }
 
 RelayState Relay::getState()

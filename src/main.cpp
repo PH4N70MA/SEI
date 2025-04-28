@@ -3,12 +3,13 @@
 
 void setup()
 {
-    red.control(ENABLE);
-    green.control(DISABLE);
-    blue.control(DISABLE);
+    red.control(TOGGLE);
+    green.control(ENABLE);
+    blue.control(ENABLE);
+    red.control(TOGGLE);
 }
 
 void loop()
 {
-    
+
 }
