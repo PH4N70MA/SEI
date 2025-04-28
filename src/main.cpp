@@ -3,13 +3,21 @@
 
 void setup()
 {
-    red.control(TOGGLE);
-    green.control(ENABLE);
-    blue.control(ENABLE);
-    red.control(TOGGLE);
+    systemSetup();
 }
 
 void loop()
 {
 
+}
+
+void serialEvent(void)
+{
+  char command[15] = {0};
+  printf("Enter command: ");
+  scanf("%15s", command);
+
+  printf("%s\n", command);
+  
+  parsing(command);
 }
