@@ -7,11 +7,6 @@
 #include <Arduino_FreeRTOS.h>
 #include <task.h>
 
-// Function prototypes
-void systemSetup(void);
-void relayTaskSetup(void *pvParameters);
-void interpreterTaskSetup(void);
-void relayTask(void *pvParameters);
 
 
 #endif // MY_TASKS_H

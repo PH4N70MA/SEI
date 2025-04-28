@@ -3,10 +3,12 @@
 
 void setup()
 {
-    systemSetup();
+    red.control(ENABLE);
+    green.control(DISABLE);
+    blue.control(DISABLE);
 }
 
 void loop()
 {
-
+    
 }
