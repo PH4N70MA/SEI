@@ -3,12 +3,15 @@
 
 #include <Arduino.h>
 #include "config.h"
+#include "own_stdio.h"
 
-void buttonLedTaskSetup(void);
-void ledIntermittentTaskSetup(void);
-void buttonVariableTaskSetup(void);
-void buttonLedTask(void);
-void ledIntermittentTask(void);
-void buttonVariableTask(void);
+enum systemState
+{
+    RUN,
+    STOP,
+};
+
+void setUp(void);
+void buttonPressTask(void);
 
 #endif 
