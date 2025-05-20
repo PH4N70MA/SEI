@@ -19,7 +19,7 @@ void PWMControl(float temperature)
 {
     regulator.input = temperature;
     analogWrite(PWM_PIN, regulator.getResultTimer());
-    printf("PWM:%.2f\n", (double)regulator.getResultTimer());
+    printf("PID:%.2f\n", (double)regulator.getResultTimer());
 }
 
 void getTemperatureAndHumidity(void)
