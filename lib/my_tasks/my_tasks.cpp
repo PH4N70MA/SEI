@@ -42,6 +42,13 @@ void minusLogic()
     }
 }
 
+void maxLogic()
+{
+    motorDuty = MAX_SPEED;
+    motor.setSpeedPerc(motorDuty);
+    printf("\fSpeed: %d\n", motorDuty);
+}
+
 void stopLogic(void)
 {
     motorDuty = 0;
@@ -137,6 +144,10 @@ void parsing(const char *command)
     else if (!strcmp(command, "stop"))
     {
         stopLogic();
+    }
+    else if (!strcmp(command, "max"))
+    {
+        maxLogic();
     }
     else
     {
