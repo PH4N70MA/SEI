@@ -6,9 +6,9 @@
 #include <config.h>
 #include <own_stdio.h>
 #include <DHT.h>
-#include "relay.h"
+#include <GyverPID.h>
 
-static Relay heat = Relay(RELAY_ID, RELAY_NAME, RELAY_PIN);
+static GyverPID regulator(P_COIFFICIENT, I_COIFFICIENT, D_COIFFICIENT);
 static DHT dht(DHTPIN, DHTTYPE);
 
 void systemSetup(void);

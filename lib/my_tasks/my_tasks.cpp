@@ -8,21 +8,18 @@ double SETPOINT = 25.0;
 void systemSetup()
 {
     dht.begin();
+    regulator.setDirection(NORMAL);
+    regulator.setLimits(0, 255);
+    regulator.setpoint = SETPOINT;
     own_stdio_setup();
     printf("\fSistem Started!\n");
 }
 
-void relayHysteresisControl(float temperature, float humidity)
+void PWMControl(float temperature)
 {
-    if (temperature > (SETPOINT + HYSTERESIS))
-    {
-        heat.control(ENABLE);
-    }
-    else if (temperature < (SETPOINT - HYSTERESIS))
-    {
-        heat.control(DISABLE);
-    }
-    printf("SP:%.2f|R:%d\n", SETPOINT, heat.getState());
+    regulator.input = temperature;
+    analogWrite(PWM_PIN, regulator.getResultTimer());
+    printf("PWM:%.2f\n", (double)regulator.getResultTimer());
 }
 
 void getTemperatureAndHumidity(void)
@@ -40,8 +37,9 @@ void getTemperatureAndHumidity(void)
             return;
         }
     
-        printf("\fT:%.2f|H:%.2f\n", temperature, humidity);
-        relayHysteresisControl(temperature, humidity);
+        printf("\fT:%.2f|SP:%.2f\n", temperature, SETPOINT);
+
+        PWMControl(temperature);
 
         nextTimeTask = millis() + TEMPERATURE_READ_INTERVAL;
     }
@@ -59,7 +57,8 @@ bool RelayControl(const char *command)
     static float value;
     if (sscanf(command, "%f", &value)) 
     {
-        SETPOINT = value;
+        regulator.setpoint = value;
+        SETPOINT = regulator.setpoint;
         return 1;
     }
     return 0;

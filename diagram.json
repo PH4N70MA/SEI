@@ -11,14 +11,6 @@
       "rotate": 90,
       "attrs": {}
     },
-    { "type": "wokwi-relay-module", "id": "relay1", "top": -19, "left": 211.2, "attrs": {} },
-    {
-      "type": "wokwi-resistor",
-      "id": "r3",
-      "top": 224.75,
-      "left": 249.6,
-      "attrs": { "value": "320" }
-    },
     { "type": "wokwi-dht22", "id": "dht1", "top": -105.3, "left": -207, "attrs": {} },
     {
       "type": "wokwi-lcd1602",
@@ -27,21 +19,17 @@
       "left": 197.6,
       "attrs": { "pins": "i2c" }
     },
+    { "type": "wokwi-led", "id": "led1", "top": -42, "left": 215, "attrs": { "color": "red" } },
     {
-      "type": "wokwi-led",
-      "id": "led1",
-      "top": -10.8,
-      "left": 409.8,
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 33.6,
+      "left": 210.65,
       "rotate": 90,
-      "attrs": { "color": "red" }
+      "attrs": { "value": "220" }
     }
   ],
   "connections": [
-    [ "mega:GND.1", "relay1:GND", "black", [ "h0" ] ],
-    [ "mega:5V.1", "relay1:VCC", "red", [ "v-2.2", "h104.6", "v-249.6" ] ],
-    [ "relay1:IN", "mega:13", "orange", [ "h0" ] ],
-    [ "r3:2", "relay1:COM", "red", [ "h46.8", "v-219.4" ] ],
-    [ "r3:1", "mega:5V.1", "red", [ "v0", "h-67.2", "v19.2" ] ],
     [ "dht1:GND", "mega:GND.2", "black", [ "v0" ] ],
     [ "dht1:VCC", "mega:VIN", "red", [ "v0" ] ],
     [ "lcd1:GND", "mega:GND.1", "black", [ "h-28.8", "v163.2" ] ],
@@ -49,8 +37,9 @@
     [ "mega:20", "lcd1:SDA", "#8f4814", [ "h19.2", "v-353.2" ] ],
     [ "mega:21", "lcd1:SCL", "orange", [ "h28.8", "v-353.1" ] ],
     [ "dht1:SDA", "mega:8", "white", [ "v278.4", "h297.7", "v-220.8" ] ],
-    [ "relay1:NO", "led1:A", "orange", [ "h0" ] ],
-    [ "mega:GND.1", "led1:C", "black", [ "h96", "v-38.6", "h192", "v38.4" ] ]
+    [ "r1:1", "led1:A", "violet", [ "h0" ] ],
+    [ "mega:7", "r1:2", "violet", [ "h0" ] ],
+    [ "mega:GND.1", "led1:C", "black", [ "h0" ] ]
   ],
   "dependencies": {}
 }
