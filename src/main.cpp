@@ -8,7 +8,7 @@ void setup()
 
 void loop()
 {
-
+    buttonTask();
 }
 
 void serialEvent(void)

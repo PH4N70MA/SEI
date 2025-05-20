@@ -3,21 +3,22 @@
 
 #define BAUD_RATE 115200 
 
-//Relay settings
-#define RELAY_ID_RED 1
-#define RELAY_ID_GREEN 2
-#define RELAY_ID_BLUE 3
+#define MAX_SPEED 100
+#define MAX_SPEED_REVERS -100
 
-#define RELAY_NAME_RED "Red light control"
-#define RELAY_NAME_GREEN "Green light control"
-#define RELAY_NAME_BLUE "Blue light control"
+#define BUTTON_REFRESH_TIME 100
 
-#define RELAY_PIN_RED 13
-#define RELAY_PIN_GREEN 12
-#define RELAY_PIN_BLUE 11
+#define BUTTON_PLUS 6
+#define BUTTON_MINUS 5
+#define BUTTON_STOP 8
+#define BUTTON_RESERVED 9
 
+#define MOTOR_PIN_1 2
+#define MOTRO_PIN_2 3
+#define MOTRO_PWN 10
 
-#define RELAY_TASK_STACK_SIZE 256
-#define RELAY_TASK_PRIORITY 1
+#define DISPLAY_ROWS 4
+#define DISPLAY_COLS 20
+#define DISPLAY_ADRESS 0x27
 
 #endif // CONFIG_H
