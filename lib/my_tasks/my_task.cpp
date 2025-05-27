@@ -92,9 +92,9 @@ void greenHorizotal(void)
 
 void greenHorizontalIntermitent(void)
 {
-    static uint32_t nextTimeBlink = 0;
+    static uint32_t nextTime = 0;
 
-    if(millis() >= nextTimeBlink)
+    if(millis() >= nextTime)
         {
             if(digitalRead(GREEN_LIGHT_HORIZONTAL))
             {
@@ -106,7 +106,7 @@ void greenHorizontalIntermitent(void)
                 digitalWrite(GREEN_LIGHT_HORIZONTAL, HIGH);
                 digitalWrite(RED_LIGHT_VERTICAL, HIGH);
             }
-            nextTimeBlink = millis() + BLINKING_TIME;
+            nextTime = millis() + BLINKING_TIME;
         }
 }
 
