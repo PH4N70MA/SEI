@@ -2,10 +2,10 @@
 
 void setup(void) 
 {
-  setUp();
+  
 }
 
 void loop(void) 
 {
-  stateMachineTask();
+
 }
