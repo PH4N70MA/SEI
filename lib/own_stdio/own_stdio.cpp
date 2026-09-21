@@ -1,4 +1,4 @@
-#include <own_stdio.h>
+#include "own_stdio.h"
 
 LiquidCrystal_I2C lcd(DISPLAY_ADRESS, DISPLAY_COLS, DISPLAY_ROWS);
 
@@ -53,6 +53,6 @@ void own_stdio_setup()
     lcd.backlight();
     lcd.clear();
 
-    fdev_setup_stream(&stream, own_lcd_putchar, own_getchar, _FDEV_SETUP_RW);
+    fdev_setup_stream(&stream, own_putchar, own_getchar, _FDEV_SETUP_RW);
     stdin = stdout = &stream;
 }
