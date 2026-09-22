@@ -8,7 +8,7 @@
 #define BAUD_RATE 9600
 #define IMPUT_SIZE 10
 
-void buttonPrecess(void);
+void buttonProcess(void);
 
 
 void setup(void) 
@@ -22,11 +22,11 @@ void setup(void)
 void loop(void) 
 {
   //Button press
-  buttonPrecess();
+  buttonProcess();
   
 }
 
-void buttonPrecess(void)
+void buttonProcess(void)
 {
   static uint32_t nextTime = 0;
   static bool lastState = false;
